@@ -2,6 +2,8 @@
 
 Turn an Adafruit [PowerBoost 1000c][] into a UPS with the help of an [ATtiny85][] microcontroller.
 
+Main article/more detail: https://blog.oddbit.com/post/2019-01-19-pipower-a-raspberry-pi-ups/
+
 [powerboost 1000c]: https://www.adafruit.com/product/2465
 [attiny85]: https://www.microchip.com/wwwproducts/en/ATtiny85
 
@@ -37,11 +39,12 @@ The `Makefile` assumes you are using an Arduino UNO as your ISP. If you're using
 
 ## Pins
 
-- `PB0` - `USB` line from PowerBoost
-- `PB1` - power button
+- `PB0` - Momentary Power Button
+- `PB1` - `USB` line from PowerBoost
 - `PB2` - `ENABLE` line to PowerBoost
-- `PB3` - `BOOT` signal from Raspberry Pi
-- `PB4` - `SHUTDOWN` signal to Raspberry Pi
+- `PB3` - `BOOT` signal from Raspberry Pi (default `GPIO4`)
+- `PB4` - `SHUTDOWN` signal to Raspberry Pi (default `GPIO17`)
+- `VCC` - `5v Power` connected to the VS output from the PowerBoost    
 
 ## Installing on your Raspberry Pi
 
@@ -69,7 +72,7 @@ The `Makefile` will install the following systemd units:
 
 - `pipowerd.service`
 
-  Launches the `pipowerd` daemon to monitor for shutdown signals on `PIN_SHUTDOWN`.
+  Launches the `pipowerd` daemon to monitor for shutdown signals on `PIN_SHUTDOWN` (default `GPIO17`).
 
 You can configure these services by creating the file `/etc/default/pipower`, which may set one or more of the following variables:
 
